@@ -4,7 +4,7 @@ class Hashsmith < Formula
   desc "Swiss Army knife for encoding, hashing, and cracking"
   homepage "https://github.com/s4l1hs/Hashsmith"
   url "https://github.com/s4l1hs/Hashsmith/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+  sha256 "fd820b6758b0b97465b42d3dcb1556f6e0e16f82aa7ca06d9732781e790e3d50"
 
   depends_on "python@3.10"
 
