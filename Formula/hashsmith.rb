@@ -9,7 +9,9 @@ class Hashsmith < Formula
   depends_on "python@3.10"
 
   def install
-    virtualenv_install_with_resources
+    virtualenv_create(libexec, "python3.10")
+    system libexec/"bin/pip", "install", "-v", "--ignore-installed", buildpath
+    bin.install_symlink libexec/"bin/hashsmith"
   end
 
   test do
