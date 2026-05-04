@@ -1,20 +1,22 @@
 class Hashsmith < Formula
-  include Language::Python::Virtualenv
-
   desc "Swiss Army knife for encoding, hashing, and cracking"
   homepage "https://github.com/s4l1hs/Hashsmith"
-  url "https://github.com/s4l1hs/Hashsmith/archive/refs/tags/v1.0.1.tar.gz"
-  sha256 "85cf3faa928319ec043ecdea0925eb7a5973b1794d47ca5ee06dc9f7b4d36c58"
+  url "https://github.com/s4l1hs/Hashsmith/archive/refs/tags/v1.2.0.tar.gz"
+  sha256 "4d4dce7265d74cdad4c13109ab34847de9626a59a41fe8478b30ba6ce081b3cb"
+  license "MIT"
 
-  depends_on "python@3.10"
+  depends_on "go" => :build
 
   def install
-    virtualenv_create(libexec, "python3.10")
-    system libexec/"bin/pip", "install", "-v", "--ignore-installed", buildpath
-    bin.install_symlink libexec/"bin/hashsmith"
+    cd "hashsmith/go_hashsmith" do
+      system "go", "build",
+             "-ldflags", "-s -w",
+             "-o", bin/"hashsmith",
+             "./cmd/hashsmith"
+    end
   end
 
   test do
-    system "#{bin}/hashsmith", "--help"
+    assert_match "Hashsmith", shell_output("#{bin}/hashsmith --help 2>&1")
   end
 end
